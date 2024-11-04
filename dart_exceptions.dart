@@ -31,7 +31,11 @@ void main() {
 
 functionOne() {
   print("Function One started!");
-  functionTwo();
+  try {
+    functionTwo();
+  } on FormatException {
+    print("Erro capturado na functionOne");
+  }
   print("Function One is over");
 }
 
@@ -39,6 +43,7 @@ functionTwo() {
   print("Function Two started...");
   for (int count = 0; count < 6; count++) {
     print(count);
+    double amount = double.parse("vixx");
   }
   print("Finshed function two");
 }
