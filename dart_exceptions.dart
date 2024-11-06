@@ -1,49 +1,28 @@
 import 'controllers/bank_controller.dart';
+import 'exceptions/bank_controller_exceptions.dart';
 import 'models/account.dart';
 
-// void main() {
-//   // Criando o banco
-//   BankController bankController = BankController();
-
-//   // Adicionando contas
-//   bankController.addAccount(
-//       id: "Ricarth",
-//       account:
-//           Account(name: "Ricarth Lima", balance: 400, isAuthenticated: true));
-
-//   bankController.addAccount(
-//       id: "Kako",
-//       account:
-//           Account(name: "Caio Couto", balance: 600, isAuthenticated: true));
-
-//   // Fazendo transferência
-//   bool result = bankController.makeTransfer(
-//       idSender: "Kako", idReceiver: "Ricarth", amount: 700);
-
-//   // Observando resultado
-//   print(result);
-// }
-
 void main() {
-  print("Started main");
-  functionOne();
-}
+  BankController bankController = BankController();
 
-functionOne() {
-  print("Function One started!");
+  bankController.addAccount(
+      id: "Theo",
+      account:
+          Account(name: "Theo Trindade", balance: 400, isAuthenticated: true));
+
+  bankController.addAccount(
+      id: "Kako",
+      account:
+          Account(name: "Kako Nakamura", balance: 600, isAuthenticated: true));
+
   try {
-    functionTwo();
-  } on FormatException {
-    print("Erro capturado na functionOne");
-  }
-  print("Function One is over");
-}
+    bool result = bankController.makeTransfer(
+        idSender: "Theo", idReceiver: "KakoK", amount: 2500);
 
-functionTwo() {
-  print("Function Two started...");
-  for (int count = 0; count < 6; count++) {
-    print(count);
-    double amount = double.parse("vixx");
+    print("Transação bem sucessedida? $result");
+  } on SenderIdInvalidException catch (exception) {
+    print("O ID '${exception.idSender}' não é um id válido");
+  } on ReciveIdInvalidException catch (exception) {
+    print("O id ${exception.idRecive} não é um usuario com id válido");
   }
-  print("Finshed function two");
 }
